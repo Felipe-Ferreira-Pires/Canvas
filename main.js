@@ -1,12 +1,6 @@
 const canvas = document.getElementById ("meuCanvas")
 const ctx = canvas.getContext("2d")
-if (window.innerWidth < 768) {
-    canvas.width = 400;
-    canvas.height = 300;
-} else {
-    canvas.width = 700;
-    canvas.height = 400;
-}
+
 
 const modo = document.getElementById ("modo")
 const cor = document.getElementById ("cor")
@@ -144,9 +138,8 @@ canvas.addEventListener("touchstart", (e)=> {
     e.preventDefault();
     const touch = e.touches[0];
     const rect = canvas.getBoundingClientRect();
-    let xAtual = touch.clientX - rect.left;
-    let yAtual = touch.clientY - rect.top;
-
+    xInicio = touch.clientX-rect.left
+    yInicio = touch.clientY-rect.top
     desenhando=true
 
     if (modo.value == "livre" || modo.value == "borracha"){
@@ -229,3 +222,12 @@ canvas.addEventListener("touchend", (e)=>{
 }
 
 })
+
+function ajustarCanvas () {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height
+}
+
+ajustarCanvas()
+window.addEventListener("resize",ajustarCanvas)
